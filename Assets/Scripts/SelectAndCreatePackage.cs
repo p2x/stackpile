@@ -6,11 +6,10 @@ using UnityEngine;
 public class SelectAndCreatePackage : MonoBehaviour {
     public static int amountOfCubes = 2;
     public static int amountOfCuboids = 2;
-    private static GameObject package;
+    public static GameObject package;
     public static bool packageSelected = false;
     //private enum PackageShape {CUBE = 1, CUBOID = 2};
     //public static int shapeIndex;
-
 
     public void selectAndInstantiateCube()
     {
@@ -48,7 +47,7 @@ public class SelectAndCreatePackage : MonoBehaviour {
             package.GetComponent<Renderer>().material.color = new Color(1.000f, 0.843f, 0.000f);
             //shapeIndex = (int)PackageShape.CUBOID;
         }
-        else if(!packageSelected && amountOfCubes > 0)
+        else if(!packageSelected && amountOfCuboids > 0)
         {
             amountOfCuboids--;
             package = Instantiate(Resources.Load("Cuboid")) as GameObject;
