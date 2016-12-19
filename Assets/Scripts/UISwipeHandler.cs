@@ -8,7 +8,7 @@ public class UISwipeHandler : MonoBehaviour, IBeginDragHandler, IDragHandler {
 
     public void OnBeginDrag(PointerEventData eventData) {
 
-        //cube = GameObject.Find("Cube");
+        //cube = Instantiate(Resources.Load("Cube")) as GameObject;
 
         Vector2 delta = eventData.delta;
 
