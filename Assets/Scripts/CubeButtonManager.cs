@@ -3,7 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CubeButtonManager : MonoBehaviour {
+/// <summary>
+/// Manages the interactíbility of the cube button and sets the button inactive if there is no cube-shaped packages left to place.
+/// </summary>
+public class CubeButtonManager : MonoBehaviour
+{
     private Button selectedPackage;
 
     // Update is called once per frame

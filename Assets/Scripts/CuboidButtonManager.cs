@@ -3,7 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CuboidButtonManager : MonoBehaviour {
+/// <summary>
+/// Manages the interactíbility of the cuboid button and sets the button inactive if there is no cuboid-shaped packages left to place.
+/// </summary>
+public class CuboidButtonManager : MonoBehaviour
+{
     private Button selectedPackage;
 
     // Update is called once per frame
