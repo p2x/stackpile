@@ -19,7 +19,7 @@ public class SelectAndCreatePackage : MonoBehaviour {
             amountOfCuboids++;
             Destroy(package);
             package = Instantiate(Resources.Load("Cube")) as GameObject;
-            package.transform.position = new Vector3(3, 4.5f, -2.5f);
+            package.transform.position = new Vector3(0, 4.5f, 0);
             package.GetComponent<Renderer>().material.color = new Color(1.000f, 0.843f, 0.000f);
             //shapeIndex = (int)PackageShape.CUBE;
         }
@@ -27,7 +27,7 @@ public class SelectAndCreatePackage : MonoBehaviour {
         {
             amountOfCubes--;
             package = Instantiate(Resources.Load("Cube")) as GameObject;
-            package.transform.position = new Vector3(3, 4.5f, -2.5f);
+            package.transform.position = new Vector3(0, 4.5f, 0);
             package.GetComponent<Renderer>().material.color = new Color(1.000f, 0.843f, 0.000f);
             //shapeIndex = (int)PackageShape.CUBE;
             packageSelected = true;
@@ -43,7 +43,7 @@ public class SelectAndCreatePackage : MonoBehaviour {
             amountOfCubes++;
             Destroy(package);
             package = Instantiate(Resources.Load("Cuboid")) as GameObject;
-            package.transform.position = new Vector3(3, 4.5f, -2.5f);
+            package.transform.position = new Vector3(0, 4.5f, 0);
             package.GetComponent<Renderer>().material.color = new Color(1.000f, 0.843f, 0.000f);
             //shapeIndex = (int)PackageShape.CUBOID;
         }
@@ -51,7 +51,7 @@ public class SelectAndCreatePackage : MonoBehaviour {
         {
             amountOfCuboids--;
             package = Instantiate(Resources.Load("Cuboid")) as GameObject;
-            package.transform.position = new Vector3(3, 4.5f, -2.5f);
+            package.transform.position = new Vector3(0, 4.5f, 0);
             package.GetComponent<Renderer>().material.color = new Color(1.000f, 0.843f, 0.000f);
             //shapeIndex = (int)PackageShape.CUBOID;
             packageSelected = true;
