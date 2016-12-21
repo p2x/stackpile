@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DragPackage: MonoBehaviour {
+public class DragPackageManager: MonoBehaviour {
     
     Vector3 dist;
     Vector3 startPos;
