@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class drag : MonoBehaviour {
-
+public class DragPackage: MonoBehaviour {
+    
     Vector3 dist;
     Vector3 startPos;
     float posX;
@@ -25,5 +25,4 @@ public class drag : MonoBehaviour {
         Vector3 lastPos = Camera.main.ScreenToWorldPoint(new Vector3(disX, disY, disZ));
         transform.position = new Vector3(lastPos.x, startPos.y, lastPos.z);
     }
-
 }
