@@ -48,16 +48,16 @@ public class SelectAndCreatePackage : MonoBehaviour
             amountOfCuboids--;
             amountOfCubes++;
             Destroy(package);
-            package = Instantiate(Resources.Load("Cuboid")) as GameObject;
+            package = Instantiate(Resources.Load("cardboardBox_03")) as GameObject;
             package.transform.position = new Vector3(0, 4.5f, 0);
             package.GetComponent<Renderer>().material.color = new Color(1.000f, 0.843f, 0.000f);
         }
         else if(!packageSelected && amountOfCuboids > 0)
         {
             amountOfCuboids--;
-            package = Instantiate(Resources.Load("Cuboid")) as GameObject;
+            package = Instantiate(Resources.Load("Prefabs/cardboardBox_03")) as GameObject;
             package.transform.position = new Vector3(0, 4.5f, 0);
-            package.GetComponent<Renderer>().material.color = new Color(1.000f, 0.843f, 0.000f);
+            //package.GetComponent<Renderer>().material.color = new Color(1.000f, 0.843f, 0.000f);
             packageSelected = true;
         }     
     }
