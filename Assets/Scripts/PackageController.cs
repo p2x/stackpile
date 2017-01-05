@@ -3,22 +3,19 @@ using System.Collections;
 
 public class PackageController : MonoBehaviour {
     public float Speed;
+    public PalletController Pallet;
 
-    private Vector3 MouseDownPosition;
     private Rigidbody Rigidbody;
-    private RigidbodyConstraints OriginalRigidbodyConstraints;
 
 
     // Use this for initialization
     private void Start() {
+        Pallet.Add(this);
         Rigidbody = GetComponent<Rigidbody>();
-        OriginalRigidbodyConstraints = Rigidbody.constraints;
-        Rigidbody.constraints = RigidbodyConstraints.FreezeAll;
     }
 
     private void OnMouseDown() {
-        Rigidbody.isKinematic = false;
-        Rigidbody.constraints = OriginalRigidbodyConstraints;
+        Pallet.BeginMovePackage(this);
     }
 
     private void OnMouseDrag() {
@@ -28,7 +25,6 @@ public class PackageController : MonoBehaviour {
 
     private void OnMouseUp() {
         Rigidbody.velocity = Vector3.zero;
-        Rigidbody.isKinematic = true;
-        Rigidbody.constraints = RigidbodyConstraints.FreezeAll;      
+        Pallet.EndMovePackage(this);
     }
 }
