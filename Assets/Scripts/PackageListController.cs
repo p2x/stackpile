@@ -9,6 +9,7 @@ public class PackageListController : MonoBehaviour {
     public Vector3 SelectedPackagePosition;
     public PalletController PalletController;
     public GameObject ConfirmPackageSelectionMenu;
+    public CameraController cameraController;
 
     private PackageButtonController[] PackageButtonControllers;
     private int SelectedButtonIndex = -1;
@@ -45,6 +46,7 @@ public class PackageListController : MonoBehaviour {
     }
 
     private void SelectButton(int index) {
+        cameraController.SwitchCameraState();
         var button = PackageButtonControllers[index];
         button.Selected = true;
         if (button.Package == null) {
