@@ -71,7 +71,6 @@ public class PackageListController : MonoBehaviour {
             button.Package.SetActive(false);
         ConfirmPackageSelectionMenu.SetActive(false);
         SelectedButtonIndex = -1;
-
     }
 
     private void PlaceSelectedPackage() {        
@@ -91,7 +90,6 @@ public class PackageListController : MonoBehaviour {
         package.GetComponent<PackageRotationController>().Enabled = false;
         PalletController.Add(packageMoveController);
         button.Package = null;
-        CheckCameraAndPackage.isPackageSelected = false;
     }
 
     private void OnConfirmClick() {
