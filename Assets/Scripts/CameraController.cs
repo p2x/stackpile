@@ -22,7 +22,7 @@ public class CameraController : MonoBehaviour {
         transform.LookAt(point);
     }
 
-    public void SwitchCameraState()
+    public void EnableDisableMoveButtons()
     {
         CheckCameraAndPackage.isCameraEnabled = !CheckCameraAndPackage.isCameraEnabled;
         if (CheckCameraAndPackage.isCameraEnabled && !CheckCameraAndPackage.isPackageSelected)
@@ -43,24 +43,24 @@ public class CameraController : MonoBehaviour {
         }
     }
 
-    public void SwitchRotatingRightState()
+    public void ChangeRotatingRightState(bool state)
     {
-        isRotatingRight = !isRotatingRight;
+        isRotatingRight = state;
     }
 
-    public void SwitchRotatingLeftState()
+    public void ChangeRotatingLeftState(bool state)
     {
-        isRotatingLeft = !isRotatingLeft;
+        isRotatingLeft = state;
     }
 
-    public void SwitchMoveUpState()
+    public void ChangeMovingUpState(bool state)
     {
-        isMovingUp = !isMovingUp;
+        isMovingUp = state;
     }
 
-    public void SwitchMoveDownState()
+    public void ChangeMovingDownState(bool state)
     {
-        isMovingDown = !isMovingDown;
+        isMovingDown = state;
     }
 
     public void MoveCamera()
@@ -69,21 +69,41 @@ public class CameraController : MonoBehaviour {
         {
             transform.RotateAround(point, Vector3.up, 20 * Time.deltaTime * speedMod);
         }
-        if (CheckCameraAndPackage.isCameraEnabled && isRotatingLeft)
+        else if (CheckCameraAndPackage.isCameraEnabled && isRotatingLeft)
         {
             transform.RotateAround(point, Vector3.down, 20 * Time.deltaTime * speedMod);
         }
-        if (CheckCameraAndPackage.isCameraEnabled && isMovingDown && transform.position.y >= 9.25)
+        else if (CheckCameraAndPackage.isCameraEnabled && isMovingDown && transform.position.y >= 9.25)
         {
             transform.Translate(Vector3.down * Time.deltaTime * speedMod);
         }
-        if (CheckCameraAndPackage.isCameraEnabled && isMovingUp && transform.position.y <= 13)
+        else if (CheckCameraAndPackage.isCameraEnabled && isMovingUp && transform.position.y <= 13)
         {
             transform.Translate(Vector3.up * Time.deltaTime * speedMod);
+        }
+    }
+
+    public void EnableDisableUpDownButtons()
+    {
+        if(CheckCameraAndPackage.isCameraEnabled && transform.position.y > 13)
+        {
+            moveButtons[2].SetActive(false);
+            ChangeMovingUpState(false);
+        }
+        else if(CheckCameraAndPackage.isCameraEnabled && transform.position.y < 9.25)
+        {
+            moveButtons[3].SetActive(false);
+            ChangeMovingDownState(false);
+        }
+        else if(CheckCameraAndPackage.isCameraEnabled && transform.position.y > 9.25 && transform.position.y < 13)
+        {
+            moveButtons[2].SetActive(true);
+            moveButtons[3].SetActive(true);
         }
     }
     void Update()
     {
         MoveCamera();
+        EnableDisableUpDownButtons();
     }
 }

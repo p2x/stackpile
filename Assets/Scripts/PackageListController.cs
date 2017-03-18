@@ -8,7 +8,7 @@ public class PackageListController : MonoBehaviour {
     public Object PackagePrefab;
     public Vector3 SelectedPackagePosition;
     public PalletController PalletController;
-    public CameraController cameraController;
+    public CameraController cameraController;   
     public GameObject ConfirmPackageSelectionMenu;
     private PackageButtonController[] PackageButtonControllers;
     private int SelectedButtonIndex = -1;
@@ -40,9 +40,9 @@ public class PackageListController : MonoBehaviour {
         } else {
             if (SelectedButtonIndex != -1)
                 UnselectButton(SelectedButtonIndex, true);            
-            SelectButton(index);            
+            SelectButton(index);    
         }
-        cameraController.SwitchCameraState();       
+        cameraController.EnableDisableMoveButtons();
 }
 
     private void SelectButton(int index) {       
@@ -103,6 +103,5 @@ public class PackageListController : MonoBehaviour {
     private void SetButtonsEnabled(bool enabled) {
         foreach (var packageButtonController in PackageButtonControllers)
             packageButtonController.Enabled = enabled;
-
     }
 }
