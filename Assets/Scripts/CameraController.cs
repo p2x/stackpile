@@ -6,10 +6,10 @@ public class CameraController : MonoBehaviour {
 
     public Transform target;
     public GameObject[] moveButtons;
-    public Button cameraButton;
-    public Sprite enableCamera;
-    public Sprite disableCamera;
+    public GameObject enableCameraButton;
+    public GameObject disableCameraButton;
     public float speedMod = 5.0f;
+    private bool isCameraEnabled;
     private bool isRotatingRight = false;
     private bool isRotatingLeft = false;
     private bool isMovingUp = false;
@@ -22,24 +22,28 @@ public class CameraController : MonoBehaviour {
         transform.LookAt(point);
     }
 
-    public void EnableDisableMoveButtons()
+    public void EnableCamera()
     {
-        CheckCameraAndPackage.isCameraEnabled = !CheckCameraAndPackage.isCameraEnabled;
-        if (CheckCameraAndPackage.isCameraEnabled && !CheckCameraAndPackage.isPackageSelected)
+        if (!PackageListController.isPackageSelected)
         {
-            cameraButton.image.overrideSprite = enableCamera;
+            isCameraEnabled = true;
+            disableCameraButton.SetActive(false);
+            enableCameraButton.SetActive(true);
             for (int i = 0; i < moveButtons.Length; i++)
             {
                 moveButtons[i].SetActive(true);
             }
         }
-        else
+    }
+
+    public void DisableCamera()
+    {
+        isCameraEnabled = false;
+        disableCameraButton.SetActive(true);
+        enableCameraButton.SetActive(false);
+        for (int i = 0; i < moveButtons.Length; i++)
         {
-            cameraButton.image.overrideSprite = disableCamera;
-            for (int i = 0; i < moveButtons.Length; i++)
-            {
-                moveButtons[i].SetActive(false);
-            }
+            moveButtons[i].SetActive(false);
         }
     }
 
@@ -65,41 +69,44 @@ public class CameraController : MonoBehaviour {
 
     public void MoveCamera()
     {
-        if(CheckCameraAndPackage.isCameraEnabled && isRotatingRight)
+        if(isRotatingRight)
         {
             transform.RotateAround(point, Vector3.up, 20 * Time.deltaTime * speedMod);
         }
-        else if (CheckCameraAndPackage.isCameraEnabled && isRotatingLeft)
+        else if (isRotatingLeft)
         {
             transform.RotateAround(point, Vector3.down, 20 * Time.deltaTime * speedMod);
         }
-        else if (CheckCameraAndPackage.isCameraEnabled && isMovingDown && transform.position.y >= 9.25)
+        else if (isMovingDown && transform.position.y >= 9.25)
         {
             transform.Translate(Vector3.down * Time.deltaTime * speedMod);
         }
-        else if (CheckCameraAndPackage.isCameraEnabled && isMovingUp && transform.position.y <= 13)
+        else if (isMovingUp && transform.position.y <= 13)
         {
             transform.Translate(Vector3.up * Time.deltaTime * speedMod);
         }
     }
 
     public void EnableDisableUpDownButtons()
-    {
-        if(CheckCameraAndPackage.isCameraEnabled && transform.position.y > 13)
+    {   
+        if(isCameraEnabled)
         {
-            moveButtons[2].SetActive(false);
-            ChangeMovingUpState(false);
-        }
-        else if(CheckCameraAndPackage.isCameraEnabled && transform.position.y < 9.25)
-        {
-            moveButtons[3].SetActive(false);
-            ChangeMovingDownState(false);
-        }
-        else if(CheckCameraAndPackage.isCameraEnabled && transform.position.y > 9.25 && transform.position.y < 13)
-        {
-            moveButtons[2].SetActive(true);
-            moveButtons[3].SetActive(true);
-        }
+            if (transform.position.y > 9.25 && transform.position.y < 13)
+            {
+                moveButtons[2].SetActive(true);
+                moveButtons[3].SetActive(true);
+            }
+            else if (transform.position.y > 13)
+            {
+                moveButtons[2].SetActive(false);
+                ChangeMovingUpState(false);
+            }
+            else if (transform.position.y < 9.25)
+            {
+                moveButtons[3].SetActive(false);
+                ChangeMovingDownState(false);
+            }           
+        }        
     }
     void Update()
     {

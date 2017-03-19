@@ -10,6 +10,7 @@ public class PackageListController : MonoBehaviour {
     public PalletController PalletController;
     public CameraController cameraController;   
     public GameObject ConfirmPackageSelectionMenu;
+    public static bool isPackageSelected;
     private PackageButtonController[] PackageButtonControllers;
     private int SelectedButtonIndex = -1;
     
@@ -42,7 +43,6 @@ public class PackageListController : MonoBehaviour {
                 UnselectButton(SelectedButtonIndex, true);            
             SelectButton(index);    
         }
-        cameraController.EnableDisableMoveButtons();
 }
 
     private void SelectButton(int index) {       
@@ -61,7 +61,9 @@ public class PackageListController : MonoBehaviour {
         }
         button.Package.SetActive(true);
         ConfirmPackageSelectionMenu.SetActive(true);
-        SelectedButtonIndex = index;      
+        SelectedButtonIndex = index;
+        isPackageSelected = true;
+        cameraController.DisableCamera();   
     }
 
     private void UnselectButton(int index, bool deactivatePackage) {
@@ -71,6 +73,7 @@ public class PackageListController : MonoBehaviour {
             button.Package.SetActive(false);
         ConfirmPackageSelectionMenu.SetActive(false);
         SelectedButtonIndex = -1;
+        isPackageSelected = false;
     }
 
     private void PlaceSelectedPackage() {        
@@ -94,10 +97,12 @@ public class PackageListController : MonoBehaviour {
 
     private void OnConfirmClick() {
         PlaceSelectedPackage();
+        isPackageSelected = false;
     }
 
     private void OnCancelClick() {
         UnselectButton(SelectedButtonIndex, true);
+        isPackageSelected = false;
     }
 
     private void SetButtonsEnabled(bool enabled) {
