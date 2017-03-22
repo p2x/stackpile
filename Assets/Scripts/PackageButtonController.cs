@@ -20,7 +20,8 @@ public class PackageButtonController : MonoBehaviour {
 
     public bool Selected {
         get { return SelectedValue; }
-        set {
+        set
+        {
             if (value == SelectedValue)
                 return;
             SelectedValue = value;
@@ -29,12 +30,14 @@ public class PackageButtonController : MonoBehaviour {
     }
 
     public GameObject Package { get; set; }
-
     private Button Button;
     private Text Text;
     private GameObject BorderBottom;
     private int PackageQuantityValue;
     private bool SelectedValue;
+    
+
+
 
     // Use this for initialization
     void Start () {

@@ -8,8 +8,9 @@ public class PackageListController : MonoBehaviour {
     public Object PackagePrefab;
     public Vector3 SelectedPackagePosition;
     public PalletController PalletController;
+    public CameraController cameraController;   
     public GameObject ConfirmPackageSelectionMenu;
-
+    public static bool isPackageSelected;
     private PackageButtonController[] PackageButtonControllers;
     private int SelectedButtonIndex = -1;
     
@@ -40,11 +41,11 @@ public class PackageListController : MonoBehaviour {
         } else {
             if (SelectedButtonIndex != -1)
                 UnselectButton(SelectedButtonIndex, true);            
-            SelectButton(index);            
-        }                
-    }
+            SelectButton(index);    
+        }
+}
 
-    private void SelectButton(int index) {
+    private void SelectButton(int index) {       
         var button = PackageButtonControllers[index];
         button.Selected = true;
         if (button.Package == null) {
@@ -61,6 +62,8 @@ public class PackageListController : MonoBehaviour {
         button.Package.SetActive(true);
         ConfirmPackageSelectionMenu.SetActive(true);
         SelectedButtonIndex = index;
+        isPackageSelected = true;
+        cameraController.DisableCamera();   
     }
 
     private void UnselectButton(int index, bool deactivatePackage) {
@@ -70,6 +73,7 @@ public class PackageListController : MonoBehaviour {
             button.Package.SetActive(false);
         ConfirmPackageSelectionMenu.SetActive(false);
         SelectedButtonIndex = -1;
+        isPackageSelected = false;
     }
 
     private void PlaceSelectedPackage() {        
@@ -88,20 +92,21 @@ public class PackageListController : MonoBehaviour {
         packageMoveController.InitiallyMoved += () => SetButtonsEnabled(true);
         package.GetComponent<PackageRotationController>().Enabled = false;
         PalletController.Add(packageMoveController);
-        button.Package = null;        
+        button.Package = null;
     }
 
     private void OnConfirmClick() {
         PlaceSelectedPackage();
+        isPackageSelected = false;
     }
 
     private void OnCancelClick() {
         UnselectButton(SelectedButtonIndex, true);
+        isPackageSelected = false;
     }
 
     private void SetButtonsEnabled(bool enabled) {
         foreach (var packageButtonController in PackageButtonControllers)
             packageButtonController.Enabled = enabled;
-
     }
 }
